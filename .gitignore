@@ -1,0 +1,54 @@
+# Build results
+bin/
+obj/
+out/
+Debug/
+Release/
+
+# Rider / IntelliJ
+.idea/
+*.sln.iml
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Logs
+*.log
+
+# Dependency caches
+# (these can be restored with dotnet restore)
+*.nuget/
+packages/
+*.snupkg
+*.nupkg
+
+# Azure / Publish profiles
+*.PublishSettings
+*.pubxml
+*.publishproj
+
+# Config / Secrets
+appsettings.json
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.local.json
+secrets.json
+
+# Docker
+*.dockerignore
+Dockerfile.*
+docker-compose.override.yml
+
+# EF Core Migrations snapshot (optional — usually keep Migrations, but ignore snapshot if large)
+Migrations/
+
+# Others
+node_modules/
+Properties/
