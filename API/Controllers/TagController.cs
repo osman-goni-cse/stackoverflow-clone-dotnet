@@ -16,9 +16,21 @@ public class TagController : ControllerBase
     }
     
     [HttpGet]
-    public ActionResult<String> Get()
+    public List<Tag> GetAllTags()
     {
-        return "tag";
+        return _tagRepository.GetAllTags();
+    }
+
+    [HttpGet("{id}")]
+    public ActionResult<Tag> GetTagById(int id)
+    {
+        Tag? tag = _tagRepository.GetTagById(id);
+        if (tag == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(tag);
     }
 
     [HttpPost]
@@ -26,6 +38,24 @@ public class TagController : ControllerBase
     public Tag Create(Tag tag)
     {
         return _tagRepository.Create(tag);
+    }
+    
+    [HttpPut("{id}")]
+    public ActionResult<Tag> Update(int id, Tag tag)
+    {
+
+        if (id != tag.ID)
+        {
+            return BadRequest();
+        }
+        
+        return _tagRepository.Update(tag);
+    }
+
+    [HttpDelete("{id}")]
+    public ActionResult<Tag> Delete(int id)
+    {
+        return _tagRepository.Delete(id);
     }
     
 }

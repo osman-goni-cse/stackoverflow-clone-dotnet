@@ -19,4 +19,29 @@ public class TagRepository : ITagRepository
         _context.SaveChanges();
         return tag;
     }
+
+    public List<Tag> GetAllTags()
+    {
+        return _context.Tags.ToList();
+    }
+
+    public Tag? GetTagById(int id)
+    {
+        return _context.Tags.Find(id);
+    }
+
+    public Tag Update(Tag tag)
+    {
+        _context.Tags.Update(tag);
+        _context.SaveChanges();
+        return tag;
+    }
+
+    public Tag Delete(int id)
+    {
+        Tag tagToDelete = GetTagById(id);
+        _context.Tags.Remove(tagToDelete);
+        _context.SaveChanges();
+        return tagToDelete;
+    }
 }
