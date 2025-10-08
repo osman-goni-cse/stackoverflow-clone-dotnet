@@ -32,7 +32,7 @@ public class UserRepository : IUserRepository
 
     public User Get(int id)
     {
-        throw new NotImplementedException();
+        return _context.Users.Find(id);
     }
 
     public User GetByEmail(string email)
