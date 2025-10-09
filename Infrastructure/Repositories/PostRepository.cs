@@ -13,7 +13,11 @@ public class PostRepository : IPostRepository
     {
         _context = context;
     }
-    
+
+    public Post Get(int? id)
+    {
+        return _context.Posts.FirstOrDefault(p => p.Id == id);
+    }
     public Post Create(Post post)
     {
         // _context.Entry(post.User).State = EntityState.Unchanged;

@@ -13,4 +13,5 @@ public class ApplicationDbContext : DbContext
     public DbSet<Tag> Tags {get; set;}
     public DbSet<User> Users {get; set;}
     public DbSet<Post> Posts {get; set;}
+    public DbSet<Answer> Answers {get; set;}
 }
