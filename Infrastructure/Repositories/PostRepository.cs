@@ -16,7 +16,7 @@ public class PostRepository : IPostRepository
     
     public Post Create(Post post)
     {
-        _context.Entry(post.User).State = EntityState.Unchanged;
+        // _context.Entry(post.User).State = EntityState.Unchanged;
         Post createdPost = _context.Posts.Add(post).Entity;
         _context.SaveChanges();
         return createdPost;

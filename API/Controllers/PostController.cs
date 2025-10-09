@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using stack_overflow.API.DTOs;
 using stack_overflow.Core.Entities;
 using stack_overflow.Core.Interfaces.IServices;
 
@@ -24,11 +25,11 @@ public class PostController : ControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public ActionResult<Post> Create(Post post)
+    public ActionResult<Post> Create(CreatePostRequestDto PostRequestDto)
     {
         try
         {
-            Post createdPost = _postService.Create(post);
+            Post createdPost = _postService.Create(PostRequestDto);
             return StatusCode(StatusCodes.Status201Created, createdPost);
         }
         catch (Exception e)
