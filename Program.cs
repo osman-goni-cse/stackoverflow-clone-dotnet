@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using stack_overflow.Core.Interfaces;
 using stack_overflow.Core.Interfaces.IServices;
@@ -23,6 +24,18 @@ builder.Services.AddScoped<IAnswerService, AnswerService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+const string CorsPolicy = "FrontendDev";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(CorsPolicy, policy =>
+        policy.WithOrigins("http://localhost:5173",
+                "http://localhost:5174",
+                "http://localhost:5175")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -35,6 +48,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseAuthorization();
 
+app.UseCors(CorsPolicy);
+
 app.MapControllers();
 
 app.Run();
+
