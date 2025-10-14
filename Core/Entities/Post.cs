@@ -11,6 +11,7 @@ public class Post
     
     public User User { get; set; }
     public List<Tag> Tags { get; set; } = new List<Tag>();
-    [JsonIgnore]
+    
+    //[JsonIgnore]
     public List<Answer> Answers { get; set; } = new List<Answer>();
 }

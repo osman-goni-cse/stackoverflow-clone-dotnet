@@ -25,6 +25,11 @@ public class PostService : IPostService
         return _postRepository.GetAllPosts();
     }
 
+    public Post Get(int id)
+    {
+        return _postRepository.Get(id);
+    }
+
     public Post Create(CreatePostRequestDto PostRequestDto)
     {
         // User user = _userRepository.Get(post.User.ID);

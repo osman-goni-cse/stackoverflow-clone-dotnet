@@ -14,9 +14,14 @@ public class PostRepository : IPostRepository
         _context = context;
     }
 
-    public Post Get(int? id)
+    public Post Get(int id)
     {
-        return _context.Posts.FirstOrDefault(p => p.Id == id);
+        return _context.Posts
+            .Include(p => p.User)
+            .Include(p => p.Tags)
+            .Include(p => p.Answers)
+            .ThenInclude(a => a.User)
+            .FirstOrDefault(p => p.Id == id);
     }
     public Post Create(Post post)
     {

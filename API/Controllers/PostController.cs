@@ -22,6 +22,12 @@ public class PostController : ControllerBase
         return Ok(_postService.GetAllPosts());
     }
 
+    [HttpGet("{id}")]
+    public ActionResult<Post> Get(int id)
+    {
+        return Ok(_postService.Get(id));
+    }
+
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

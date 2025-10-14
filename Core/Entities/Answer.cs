@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace stack_overflow.Core.Entities;
 
 public class Answer
@@ -12,6 +14,7 @@ public class Answer
      SQL SERVER will throw exception if we don't make one of the relationships nullable
     */
     public int? PostId { get; set; } 
+    [JsonIgnore]
     public Post Post { get; set; }
     
     public int UserId { get; set; }
