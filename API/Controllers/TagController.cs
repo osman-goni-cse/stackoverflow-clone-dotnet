@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using stack_overflow.Core.Entities;
 using stack_overflow.Core.Interfaces;
@@ -9,7 +10,6 @@ namespace stack_overflow.API.Controllers;
 [Route("api/[controller]")]
 public class TagController : ControllerBase
 {
-    // private readonly ITagRepository _tagRepository;
     private readonly ITagService _tagService;
     public TagController(ITagService tagService)
     {
@@ -33,7 +33,8 @@ public class TagController : ControllerBase
 
         return Ok(tag);
     }
-
+    
+    [Authorize(Roles = "admin")]
     [HttpPost]
     [IgnoreAntiforgeryToken]
     public Tag Create(Tag tag)
