@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using stack_overflow.API.DTOs;
@@ -17,6 +18,7 @@ public class AnswerController : ControllerBase
         _answerService = answerService;
     }
     
+    [Authorize]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

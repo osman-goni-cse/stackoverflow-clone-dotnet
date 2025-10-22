@@ -53,5 +53,36 @@ public class AuthController : ControllerBase
             return Unauthorized(new { message = e.Message });
         }
     }
-    
+
+    [HttpGet("me")]
+    public IActionResult GetMe()
+    {
+        if (User.Identity?.IsAuthenticated ?? false)
+        {
+            var userInfo = new
+            {
+                Username = User.Identity.Name,
+                Claims = User.Claims.Select(c => new { c.Type, c.Value })
+            };
+            
+            return Ok(new {isLoggedIn = true, userInfo=userInfo});
+        }
+        return Ok(new {isLoggedIn = false});
+    }
+
+    [HttpPost("logout")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public IActionResult Logout()
+    {
+        if (Request.Cookies.ContainsKey("jwt"))
+        {
+            Response.Cookies.Delete("jwt", new CookieOptions
+            {
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Lax
+            });
+        }
+        return Ok(new {message = "Successfully logged out" });
+    }
 }

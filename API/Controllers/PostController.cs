@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using stack_overflow.API.DTOs;
 using stack_overflow.Core.Entities;
@@ -27,7 +28,8 @@ public class PostController : ControllerBase
     {
         return Ok(_postService.Get(id));
     }
-
+    
+    [Authorize]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
