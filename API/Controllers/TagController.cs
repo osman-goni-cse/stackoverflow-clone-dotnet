@@ -42,6 +42,7 @@ public class TagController : ControllerBase
         return _tagService.Create(tag);
     }
     
+    [Authorize]
     [HttpPut("{id}")]
     public ActionResult<Tag> Update(int id, Tag tag)
     {
@@ -53,7 +54,8 @@ public class TagController : ControllerBase
         
         return _tagService.Update(tag);
     }
-
+    
+    [Authorize]
     [HttpDelete("{id}")]
     public ActionResult<Tag> Delete(int id)
     {
