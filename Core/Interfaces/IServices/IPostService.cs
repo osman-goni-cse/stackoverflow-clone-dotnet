@@ -7,5 +7,6 @@ public interface IPostService
 {
     public IEnumerable<Post> GetAllPosts();
     public Post Get(int id);
-    public Post Create(CreatePostRequestDto PostRequestDto);
+    public Task<Post> GetAsync(int id);
+    public Task<Post> Create(CreatePostRequestDto PostRequestDto);
 }

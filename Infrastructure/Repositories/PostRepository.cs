@@ -23,11 +23,21 @@ public class PostRepository : IPostRepository
             .ThenInclude(a => a.User)
             .FirstOrDefault(p => p.Id == id);
     }
-    public Post Create(Post post)
+
+    public async Task<Post> GetAsync(int id)
+    {
+        return await _context.Posts
+            .Include(p => p.User)
+            .Include(p => p.Tags)
+            .Include(p => p.Files) // if you have PostFile entity
+            .FirstOrDefaultAsync(p => p.Id == id);
+    }
+
+    public async Task<Post> Create(Post post)
     {
         // _context.Entry(post.User).State = EntityState.Unchanged;
         Post createdPost = _context.Posts.Add(post).Entity;
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return createdPost;
     }
 

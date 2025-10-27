@@ -14,4 +14,6 @@ public class Post
     
     //[JsonIgnore]
     public List<Answer> Answers { get; set; } = new List<Answer>();
+
+    public List<PostFile> Files { get; set; } = new();
 }

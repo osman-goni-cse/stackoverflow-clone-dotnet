@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using stack_overflow.Core.Interfaces;
 using stack_overflow.Core.Interfaces.IServices;
 using stack_overflow.Core.Services;
+using stack_overflow.Infrastructure.Configuration;
 using stack_overflow.Infrastructure.Data;
 using stack_overflow.Infrastructure.Repositories;
 
@@ -26,7 +27,7 @@ builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
 builder.Services.AddScoped<IAnswerService, AnswerService>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-
+builder.Services.AddScoped<IFileStorageService, FileStorageService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -55,6 +56,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             }
         };
     });
+
+builder.Services.Configure<FileUploadSettings>(builder.Configuration.GetSection("FileUploadSettings"));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

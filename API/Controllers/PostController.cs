@@ -23,26 +23,35 @@ public class PostController : ControllerBase
         return Ok(_postService.GetAllPosts());
     }
 
-    [HttpGet("{id}")]
-    public ActionResult<Post> Get(int id)
-    {
-        return Ok(_postService.Get(id));
-    }
+    // [HttpGet("{id}")]
+    // public ActionResult<Post> Get(int id)
+    // {
+    //     return Ok(_postService.Get(id));
+    // }
     
     [Authorize]
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public ActionResult<Post> Create(CreatePostRequestDto PostRequestDto)
+    public async Task<IActionResult> Create([FromForm] CreatePostRequestDto PostRequestDto)
     {
         try
         {
-            Post createdPost = _postService.Create(PostRequestDto);
-            return StatusCode(StatusCodes.Status201Created, createdPost);
+            Post createdPost = await _postService.Create(PostRequestDto);
+            return CreatedAtAction(nameof(GetById), new { id = createdPost.Id }, createdPost);
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            return BadRequest(e.Message);
+            return BadRequest(new { Error = ex.Message });
         }
+    }
+    
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var post = await _postService.GetAsync(id);
+        if (post == null) return NotFound();
+
+        return Ok(post);
     }
 }
