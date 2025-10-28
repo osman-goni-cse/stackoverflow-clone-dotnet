@@ -2,6 +2,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using stack_overflow.Core.Interfaces;
 using stack_overflow.Core.Interfaces.IServices;
@@ -82,6 +83,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), "..", "FileUploads"))),
+    RequestPath = "/uploads"
+});
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
